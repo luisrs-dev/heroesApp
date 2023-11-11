@@ -15,7 +15,7 @@ export class HeroesService {
     return this.httpClient.get<Hero[]>(`${this.baseUrl}/heroes`);
   }
 
-  getHeroeById(id: string): Observable<Hero | undefined> {
+  getHeroById(id: string): Observable<Hero | undefined> {
     return this.httpClient.get<Hero>(`${this.baseUrl}/heroes/${id}`)
       .pipe(
         catchError(error => of(undefined))
@@ -35,12 +35,12 @@ export class HeroesService {
     return this.httpClient.patch<Hero>(`${this.baseUrl}/heroes/${hero.id} `, hero)
   }
 
-  deleteHero(id: string): Observable<boolean> {
+  deleteHeroById(id: string): Observable<boolean> {
     return this.httpClient.delete<Hero>(`${this.baseUrl}/heroes/${id}`)
       .pipe(
-        catchError(err => of(false)),
         // map nos permite transformar la respuesta
-        map(resp => true)
+        map(resp => true),
+        catchError(err => of(false))
       )
   }
 
